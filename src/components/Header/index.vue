@@ -62,23 +62,24 @@ export default {
         // 第二种：模板字符串
         // this.$router.push(`/search/${this.keyword}?k=${this.keyword.toUpperCase()}`)
         // 第三种：对象写法
-        this.$router.push({
-            name:'search',
-            params:{keyword:this.keyword},
-            query:{k:this.keyword.toUpperCase()}
-        },  
-        )
+        if(this.$route.query){
+            // 代表如果有query参数，也带过去
+            let location =  { name:'search', params:{keyword:this.keyword || undefined}} 
+            location.query = this.$route.query
+            this.$router.push(location)
+        }
 
         // 1:路由传递参数（对象写法）path是否可以结合params参数一起使用?
         //  不可以：不能这样书写，程序会崩掉
         // this.$router.push({path:'/search',params:{keyword:this.keyword},query:{k:this.keyword.toUpperCase()} })
 
         // 2:如何指定params参数可传可不传? 
-        //  在配置路由的时候，在占位的后面加上一个问号【params可以传递也可以不传递】
+        //  在配置路由的时候，在占位的后面加上一个问号，代表params参数可以传递也可以不传递
         //  如果路由要求传递params参数，但是不传递的话，URL会有问题。
         // this.$router.push({name:'search',query:{k:this.keyword.toUpperCase()}})
 
         // 3:params参数可以传递也可以不传递，但是如果传递是空串，如何解决？
+        // 路径有问题，/search丢了
        //  使用undefined解决：params:{keyword:''||undefined}
     //    this.$router.push({name:'search', params:''||undefined,query:{k:this.keyword.toUpperCase()}})
     }
