@@ -6,13 +6,14 @@ import mockRequests from './mockAjax'
 
 // 对外暴露一个函数，只要外部调用这个函数，就向服务器发起Ajax请求
 // 发请求:axios发请求返回的结果是Promise对象
+// 1.获取三级分类列表数据
 export const reqCategoryList = ()=>
     requests({url:'/api/product/getBaseCategoryList', method:'get'})
 
-// 获取Home首页轮播图banner数据
+// 2.获取Home首页轮播图banner数据
 export const reqGetBannerList = ()=>mockRequests.get('/banner',)
 
-// 获取floor数据
+// 3.获取floor数据
 export const regGetFloorList = ()=>mockRequests.get('/floor')
 
 // 获取search模块数据 地址/api/list  请求方式：post 参数：需要带参数
@@ -26,9 +27,24 @@ export const regGetFloorList = ()=>mockRequests.get('/floor')
     "props": ["1:1700-2799:价格", "2:6.65-6.74英寸:屏幕尺寸"],
     "trademark": "4:小米"
   } */
-//当前这个接口，给服务器传递参数params，至少是一个空对象
+//4.当前这个接口，给服务器传递参数params，至少是一个空对象
 export const reqGetSearchInfo = (params)=>requests({
     url:'/api/list',
     method:'post',
     data:params
 })
+
+// 5.获取产品详情信息的接口  URL:/api/item/{ skuId }  请求方式：get
+export const reqGetGoodInfo = (skuId) =>requests({
+    url: `/api/item/${skuId}`,
+    method:'get'
+})
+
+// 6..添加到购物车(对已有物品进行数量改动)   /api/cart/addToCart/{ skuId }/{ skuNum }  请求方式：post
+export const reqAddOrUpdateShopCart = (skuId,skuNum)=>requests({
+    url:`/api/cart/addToCart/${skuId}/${skuNum} `,
+    method:'post'
+})
+
+// 7.获取购物车列表    /api/cart/cartList  请求方式：get
+export const reqShopCart = ()=>requests.get('/api/cart/cartList')

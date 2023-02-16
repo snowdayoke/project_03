@@ -18,8 +18,21 @@ const actions = {
         }
     }
 }
-// 计算属性：在项目中，为了简化数据而生
-const getters = {}
+// getters计算属性：在项目中，为了简化数据而生
+const getters = {
+    // 当前形参state，是search仓库中的state
+    // 假如网络不给力|没有网，state.searchList应该返回的是undefined,会报错
+    // 因而加个空数组
+    goodsList(state){
+        return state.searchList.goodsList || []
+    },
+    trademarkList(state){
+        return state.searchList.trademarkList
+    },
+    attrsList(state){
+        return state.searchList.attrsList
+    }
+}
 export default {
     state,
     mutations,

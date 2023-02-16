@@ -68,7 +68,7 @@ export default {
             location.query = this.$route.query
             this.$router.push(location)
         }
-
+    }
         // 1:路由传递参数（对象写法）path是否可以结合params参数一起使用?
         //  不可以：不能这样书写，程序会崩掉
         // this.$router.push({path:'/search',params:{keyword:this.keyword},query:{k:this.keyword.toUpperCase()} })
@@ -81,11 +81,14 @@ export default {
         // 3:params参数可以传递也可以不传递，但是如果传递是空串，如何解决？
         // 路径有问题，/search丢了
        //  使用undefined解决：params:{keyword:''||undefined}
-    //    this.$router.push({name:'search', params:''||undefined,query:{k:this.keyword.toUpperCase()}})
+    //    this.$router.push({name:'search', params:''||undefined,query:{k:this.keyword.toUpperCase()}})   
+    },
+    mounted(){
+        // 通过全局事件总线消除关键字
+        this.$bus.$on('clear',()=>{
+            this.keyword = ''
+        })
     }
-//    
-
-}
 }
 </script>
 
