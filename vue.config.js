@@ -4,7 +4,9 @@ module.exports = defineConfig({
 })
 
 module.exports = {
-  // 关闭eslint
+  // 处理map文件
+  productionSourceMap:false,
+  // 关闭eslint校验工具
   lintOnSave:false,
 
   // 代理跨域

@@ -1,5 +1,6 @@
 <template>
     <div>
+      <!-- <h1 v-upper="msg"></h1> -->
       <Header></Header>
       <!-- 路由组件出口的地方 -->
       <router-view></router-view>
@@ -13,6 +14,11 @@
 import Header from './components/Header'
 import Footer from './components/Footer'
 export default {
+    data() {
+      return {
+        msg:'abc'
+      }
+    },
     components:{Header,Footer},
     mounted(){
       // 派发actions，通知Vuex发请求。获取三级列表的数据

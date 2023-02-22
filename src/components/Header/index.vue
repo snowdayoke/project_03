@@ -5,16 +5,21 @@
                 <div class="container">
                     <div class="loginList">
                         <p>尚品汇欢迎您！</p>
-                        <p>
+                        <!-- 没有用户名，未登录 -->
+                        <p v-if="!userName">
                             <span>请</span>
                             <!-- 声明式导航：务必要有to属性 -->
                             <router-link to="/login">登录</router-link>
                             <router-link to="/register" class="register">免费注册</router-link>
                         </p>
+                        <p v-else>
+                            <a>{{ userName }}</a>
+                            <a class="register" @click="userLogout">退出登录</a>
+                        </p>
                     </div>
                     <div class="typeList">
-                        <a href="###">我的订单</a>
-                        <a href="###">我的购物车</a>
+                        <router-link to="/center/myorder">我的订单</router-link>
+                        <router-link to="/shopcart">我的购物车</router-link>
                         <a href="###">我的尚品汇</a>
                         <a href="###">尚品汇会员</a>
                         <a href="###">企业采购</a>
@@ -68,7 +73,7 @@ export default {
             location.query = this.$route.query
             this.$router.push(location)
         }
-    }
+    },
         // 1:路由传递参数（对象写法）path是否可以结合params参数一起使用?
         //  不可以：不能这样书写，程序会崩掉
         // this.$router.push({path:'/search',params:{keyword:this.keyword},query:{k:this.keyword.toUpperCase()} })
@@ -82,12 +87,28 @@ export default {
         // 路径有问题，/search丢了
        //  使用undefined解决：params:{keyword:''||undefined}
     //    this.$router.push({name:'search', params:''||undefined,query:{k:this.keyword.toUpperCase()}})   
+        // 退出登录
+        async userLogout(){
+            try {
+                await this.$store.dispatch('logout')
+                // 退出登录后，跳转到首页
+                this.$router.push('/home')
+            } catch (error) {
+                alert('error.message')
+            } 
+            }
     },
     mounted(){
         // 通过全局事件总线消除关键字
         this.$bus.$on('clear',()=>{
             this.keyword = ''
         })
+    },
+    computed:{
+        // 用户名的信息
+        userName(){
+            return this.$store.state.user.userInfo.name
+        }
     }
 }
 </script>

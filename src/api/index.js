@@ -48,3 +48,49 @@ export const reqAddOrUpdateShopCart = (skuId,skuNum)=>requests({
 
 // 7.获取购物车列表    /api/cart/cartList  请求方式：get
 export const reqShopCart = ()=>requests.get('/api/cart/cartList')
+
+// 8.删除购物车商品  /api/cart/deleteCart/{skuId}  请求方式：delete
+export const reqDeleteCartById = (skuId)=>requests({url:`/api/cart/deleteCart/${skuId}`,method:'delete'})
+ 
+// 9.勾选商品选中状态  /api/cart/checkCart/{skuID}/{isChecked}  请求方式：get
+export const reqCheckCartById = (skuId,isChecked)=>requests({
+    url:`/api/cart/checkCart/${skuId}/${isChecked}`,
+    method:'get'
+})
+
+// 10.获取验证码    /api/user/passport/sendCode/{phone}  请求方式：get
+export const reqGetCode = (phone)=>requests({url:`/api/user/passport/sendCode/${phone}`,method:'get'})
+
+// 11.注册用户  /api/user/passport/register   请求方式：post
+export const reqUserRegister = (data) =>requests({url:'/api/user/passport/register',method:'post',data})
+
+// 12.用户登录   /api/user/passport/login   请求方式：post
+export const reqUserLogin = (data)=>requests({url:'/api/user/passport/login',method:'post',data})
+
+// 13.获取用户信息【带着用户的token向服务器要用户信息】   /api/user/passport/auth/getUserInfo  请求方式：get
+export const reqGetUserInfo = ()=>requests({url:'/api/user/passport/auth/getUserInfo',method:'get'})
+
+// 14.退出登录 /api/user/passport/logout  请求方式：get
+export const reqLogout = ()=>requests({url:'/api/user/passport/logout',method:'get'})
+
+// 15.获取用户地址信息  /api/user/userAddress/auth/findUserAddressList 请求方式：get
+export const reqUserAddress = ()=>requests({url:'/api/user/userAddress/auth/findUserAddressList',method:'get'})
+
+// 16.获取订单交易页信息   /api/order/auth/trade 请求方式：get
+export const reqOrderInfo = ()=>requests({url:'/api/order/auth/trade',method:'get'})
+
+// 17.提交订单  /api/order/auth/submitOrder?tradeNo={tradeNo}   请求方式：post
+export const reqSubmitOrder = (tradeNo,data)=>requests({
+    url:`/api/order/auth/submitOrder?tradeNo=${tradeNo}`,
+    data,
+    method:'post'
+})
+
+// 18.获取订单支付信息   /api/payment/weixin/createNative/{orderId}  请求方式：get
+export const reqPayInfo = (orderId)=>requests({url:`/api/payment/weixin/createNative/${orderId}`,method:'get'})
+
+// 19.查询支付订单状态  /api/payment/weixin/queryPayStatus/{orderId}  请求方式：get
+export const reqPayStatus = (orderId)=>requests({url:`/api/payment/weixin/queryPayStatus/${orderId}`,method:'get'})
+
+// 20.获取我的订单列表   /api/order/auth/{page}/{limit}    请求方式：get
+export const reqOrderList = (page,limit)=>requests({url:`/api/order/auth/${page}/${limit}`,method:'get'})

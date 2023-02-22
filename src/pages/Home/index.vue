@@ -29,7 +29,7 @@ export default {
     computed:{
         ...mapState({
             floorList:state=>state.home.floorList
-        })
+        }),
     }
 }
 </script>
